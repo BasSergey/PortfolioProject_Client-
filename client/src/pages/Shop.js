@@ -30,7 +30,7 @@ const Shop = () => {
 }, [course.page, course.selectedType, course.selectedArea,])
 
   return (
-    <div className="shop-container">
+    <div>
       <div className='row _shop'  >
         <div className='col' style={{ border: "none", animationName: "typeBar", animationDuration: "0.5s" }}  >
           <TypeBar />

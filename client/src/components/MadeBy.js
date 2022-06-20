@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom'
 function MadeBy() {
     return (
         <>
-            {/* TODO: сделать ссылку, чтобы можно было связаться*/}
             <Link to='#' className='made-by' >
-                <div className='tilt'>
+                <div className='tilte'>
                     <span>M</span>
                     <span>A</span>
                     <span>D</span>
@@ -20,7 +19,6 @@ function MadeBy() {
                     <span>G</span>
                     <span>E</span>
                     <span>Y</span>
-                    {/* TODO: сделать ссылку, чтобы можно было связаться*/}
                 </div>
             </Link>
         </>

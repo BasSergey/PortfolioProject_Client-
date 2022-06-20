@@ -1,38 +1,15 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite';
-import * as Icons from 'react-icons'
-import {FaBars} from "react-icons/bi";
 import NavBar from '../components/NavBar.js';
-import { useRef, useEffect, useState, useContext } from 'react';
-import { useInView } from 'react-intersection-observer';
-import ScrollAnimation from 'react-animate-on-scroll';
+import { useRef, useEffect } from 'react';
 import { gsap } from "gsap";
-import $api from "../http";
 import { Context } from '..';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-
 gsap.registerPlugin(ScrollTrigger);
 
 const MainPage = () => {
-  const { store } = useContext(Context)
-  const contents = [
-    {
-      id: "1",
-      point: "Выберите шаблон",
-      text: "Есть идея, но не знаете, как реализовать? Или, возможно, сайт нужно сделать в кратчайшие сроки? Попробуйте выбрать что-то из уже <b>готовых решений</b>. От трэвел-блога до личной визитки – найдётся всё!",
-    },
-    {
-      id: "2",
-      point: "Всё по своим местам",
-      text: "Вы знаете, что делаете? Что ж, тогда осталось всего-то расположить элементы на вашей странице. Для этого воспользуйтесь <b>редактором</b>. Вы наверняка найдёте необходимые компоненты!"
-    },
-    {
-      id: "3",
-      point: "Создавайте",
-      text: "Наш ресурс предоставляет вам полную свободу действий в подходе к созданию вашего сайта. Изменяйте готовые наброски или делайте всё полностью с нуля."
-    }
-  ];
+
   const bottomRef = useRef(null);
   const rightRef = useRef(null);
   const leftRef = useRef(null);
@@ -57,9 +34,9 @@ const MainPage = () => {
         },
         {
           opacity: 1,
-          duration: 1.5,
+          duration: 2,
           scrollTrigger: {
-            trigger: fade
+            trigger: fade,
         }})
     });
     gsap.utils.toArray(".leftRef").forEach(paragraphLeft => {
@@ -94,12 +71,12 @@ const MainPage = () => {
         <div className='main-page'>
 
             <ul className='row columns-ul'>
-                <li className='columns columns_first'></li>
-                <li className='columns columns_second'></li>
-                <li className='columns columns_third'></li>
-                <li className='columns columns_fourth'></li>
-                <li className='columns columns_fifth'></li>
-                <li className='columns columns_sixth'></li>
+                <li className='columns'></li>
+                <li className='columns'></li>
+                <li className='columns'></li>
+                <li className='columns'></li>
+                <li className='columns'></li>
+                <li className='columns'></li>
             </ul>
 
             <div className='main-page__wrapper'>
@@ -123,24 +100,20 @@ const MainPage = () => {
 
             <div className="contentBox">
               
-              <p className="headerText" ref={bottomRef}>Профессия твоей мечты!</p>
+              <p className="headerText orbitron" ref={bottomRef}>Профессия твоей мечты!</p>
               <p className="contentPoint" ref={rightRef}> Выбирай сферу своих интересов и ныряй в мир новых знаний!</p>
               <p className="contentPoint" style={{color:"#F90B8E"}} ref={leftRef}>Выберите курс</p>
-              
               
               <div className='contentBox-body'>
                 <div className="imageDiv imageDivMarketing fadeIn"></div>
                 <p className='contentBox-text orbitron rightRef'>БИЗНЕС-АНАЛИТИКА</p>
                 <p className="contentSubText leftRef">Вы научитесь эффективно общаться с заказчиками, формулировать технические задания, улучшать и автоматизировать бизнес-процессы.</p>
               </div>
-             
-              {/* <p className="contentPoint leftRef">Всё по своим местам</p> */}
               <div className='contentBox-body'>
                 <div className="imageDiv imageDivDigital fadeIn"></div>
                 <p className='contentBox-text orbitron rightRef' >DIGITAL-МАРКЕТИНГ</p>
               </div>
               <p className="contentSubText leftRef"> Вы научитесь настраивать инструменты привлечения и удержания клиентов, познакомитесь с SMM, освоите веб-аналитику, сможете проводить полный анализ рынка и применять каждый инструмент на практике.ссы.</p>
-             
               <div className='contentBox-body'>
                 <div className="imageDiv imageDivAnimation fadeIn"></div>
                 <p className='contentBox-text orbitron rightRef'>ОСНОВЫ КОМПЬЮТЕРНОЙ АНИМАЦИИ</p>
@@ -176,12 +149,11 @@ const MainPage = () => {
               </div>
               <p className="contentSubText leftRef">Вы научитесь создавать 3D-вселенные, управлять искусственным интеллектом и весело проводить время.</p>
 
-              {/* <div className="contentStartButton fadeIn">Создать</div> */}
               <Link to='/shop'>
                 <button className="btn__clickable contentStartButton">ВЫБРАТЬ КУРС</button>
               </Link>
             </div>
-            
+      
         </div>
     )
 }
