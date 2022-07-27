@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Modal from "react-bootstrap/Modal";
-import { Button, Dropdown, Form, Row, Col } from "react-bootstrap";
 import { Context } from "../../index";
 import { createCourse, fetchAreas, fetchCourses, fetchTypes } from "../../http/courseAPI";
 import { observer } from "mobx-react-lite";
 
-const CreateCourse = ({ active, setActive }) => {
+const CreateCourse = observer(({ active, setActive }) => {
 
     const { course } = useContext(Context)
     const [name, setName] = useState('')
     const [price, setPrice] = useState(0);
-    const [file, setFile] = useState(null)
+    const [file, setFile] = useState()
     const [info, setInfo] = useState([])
+    const [selectedType, setSelectedType] = useState(course.types[0]);
+    const [selectedArea, setSelectedArea] = useState(course.areas[0]);
 
     useEffect(() => {
         fetchTypes().then(data => course.setTypes(data))
@@ -27,82 +27,79 @@ const CreateCourse = ({ active, setActive }) => {
     const changeInfo = (key, value, number) => {
         setInfo(info.map(i => i.number === number ? { ...i, [key]: value } : i))
     }
-
     const selectFile = e => {
         setFile(e.target.files[0])
     }
-
     const addCourse = () => {
         const formData = new FormData()
-        formData.append('name', name)
-        formData.append('price', price)
+        formData.append('name', name) //Метод append() из интерфейса FormData добавляет новое значение в существующий ключ внутри объекта FormData, или создаёт ключ, в случае если он отсутствует.
+        formData.append('price', `${price}`)
         formData.append('img', file)
-        formData.append('areaId', course.selectedArea.id)
-        formData.append('typeId', course.selectedType.id)
-        formData.append('info', JSON.stringify(info))
+        formData.append('typeId', course.selectedType)
+        formData.append('areaId', course.selectedArea)
+        // formData.append('info', JSON.stringify(info)) //массив нельзя отдать, поэтому переводим в json, на сервере она будет парситьяс оьратно в массив
         createCourse(formData).then(data => setActive())
-        // console.log(info);
     }
-    // console.log(price);
+    const changeSelectedType = event => {
+        setSelectedType(event.target.value);
+        course.setSelectedType(event.target.value)
+    };
+    const changeSelectedArea = event => {
+        setSelectedArea(event.target.value);
+        course.setSelectedArea(event.target.value)
+    };
     return (
         <>
             <div className={active ? "modal active" : "modal"} onClick={() => setActive(false)}>
                 <div className={active ? "modal-content active" : "modal-content"} onClick={e => e.stopPropagation()}>
                     <div className="modal-body">
-                        <h3 style={{ marginBottom: "20px" }}>Добавить курс</h3>
+                        <h3>Добавить курс</h3>
                         <form>
-                            <h4>Выберите тип: </h4>
 
-                            <select >
-                                {course.types.map(type =>
+                            <h4>Выберите тип </h4>
+                            <select
+                                value={selectedType}
+                                onChange={changeSelectedType}>
+                                {
+                                    course.types.map(type =>
+                                        <option
+                                            key={type.id}
+                                            value={type.id}
+                                        >
+                                            {type.name}
+                                        </option>
+                                    )}
+                            </select>
+
+                            <h4>Выберите область</h4>
+                            <select
+                                value={selectedArea}
+                                onChange={changeSelectedArea}>
+                                {course.areas.map(area =>
                                     <option
-                                        onClick={() => course.setSelectedType(type)}
-                                        key={type.id}>
-                                        {type.name}
+                                        key={area.id}
+                                        value={area.id}
+                                    >
+                                        {area.name}
                                     </option>
                                 )}
                             </select>
 
-                        </form>
-
-                        <form>
-                            <h4>Выберите область: </h4>
-                            <select >
-                                {course.areas.map(area =>
-                                    <option
-                                        onClick={() => course.setSelectedArea(area)}
-                                        key={area.id}
-                                    >{area.name}</option>
-                                )}
-                            </select>
-                        </form>
-
-                        <form>
                             <input type="text" placeholder="Укажите название"
                                 value={name}
                                 onChange={e => setName(e.target.value)} />
-                        </form>
 
-                        <form>
                             <input type="number" placeholder="Укажите цену"
                                 value={price}
-                                onChange={e => setPrice(e.target.value)} 
-                                // onChange={e => setPrice(parseInt(e.target.value, 10))}
-                                />
-                        </form>
+                                onChange={e => setPrice(Number(e.target.value))}
+                            // onChange={e => setPrice(parseInt(e.target.value, 10))}
+                            />
 
-                        <form>
                             <input
                                 type="file"
-                                placeholder="Выберите изображение"
                                 onChange={selectFile}
                             />
                         </form>
-
-                        {/* <form>
-                            <h4>Добавьте описание</h4>
-                            <textarea></textarea>
-                        </form> */}
 
                         {info.map(i =>
                             <form key={i.number}>
@@ -117,28 +114,22 @@ const CreateCourse = ({ active, setActive }) => {
                                     value={i.description}
                                     onChange={(e) => changeInfo('description', e.target.value, i.number)} />
 
-                                <button className=""
-                                    style={{ color: "red", width: "10%", height: "44px" }}
+                                <button className="btn__delete"
                                     onClick={() => removeInfo(i.number)}
                                 >
                                     Удалить</button>
                             </form>
                         )}
+
                         <div className='row'>
-                            <button className="btn__clickable" style={{ float: "left" }} onClick={addInfo}>Новое свойство</button>
+                            <button className="btn__clickable" onClick={addInfo}>Новое свойство</button>
                             <button className="btn__clickable" onClick={addCourse}>Добавить</button>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div
-                onClick={() => {
-                    setActive(false);
-                }}
-                className={active ? "modal-overlay open-overlay" : "modal-overlay"}
-            ></div>
+            </div >
         </>
     )
-}
+});
 
-export default observer(CreateCourse);
+export default CreateCourse;

@@ -102,7 +102,7 @@ const MainPage = () => {
               
               <p className="headerText orbitron" ref={bottomRef}>Профессия твоей мечты!</p>
               <p className="contentPoint" ref={rightRef}> Выбирай сферу своих интересов и ныряй в мир новых знаний!</p>
-              <p className="contentPoint" style={{color:"#F90B8E"}} ref={leftRef}>Выберите курс</p>
+              <h3 className="contentPoint" ref={leftRef}>Выберите курс</h3>
               
               <div className='contentBox-body'>
                 <div className="imageDiv imageDivMarketing fadeIn"></div>
@@ -111,7 +111,7 @@ const MainPage = () => {
               </div>
               <div className='contentBox-body'>
                 <div className="imageDiv imageDivDigital fadeIn"></div>
-                <p className='contentBox-text orbitron rightRef' >DIGITAL-МАРКЕТИНГ</p>
+                <p className='contentBox-text orbitron rightRef'>DIGITAL-МАРКЕТИНГ</p>
               </div>
               <p className="contentSubText leftRef"> Вы научитесь настраивать инструменты привлечения и удержания клиентов, познакомитесь с SMM, освоите веб-аналитику, сможете проводить полный анализ рынка и применять каждый инструмент на практике.ссы.</p>
               <div className='contentBox-body'>

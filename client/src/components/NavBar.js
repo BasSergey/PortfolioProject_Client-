@@ -25,9 +25,7 @@ function NavBar() {
 
             <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                 <Link to="/login">
-                    <button onClick={() => store.logout()}
-                        style={{ color: "red", height: "44px", margin: "5px" }} className="btn__clickable">
-                            Выйти</button>
+                    <button onClick={() => store.logout()} className="btn__clickable">Выйти</button>
                 </Link>
                 <ul className='nav-menu-items'>
                     {SideBarData.map((item, index) => {
@@ -39,7 +37,6 @@ function NavBar() {
                                     <span>{item.title}</span>
                                 </Link>
                             </li>
-
                         )
                     })}
                 </ul>

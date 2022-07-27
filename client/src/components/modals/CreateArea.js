@@ -15,21 +15,20 @@ const CreateArea = ({ active, setActive }) => {
             <div className={active ? "modal active" : "modal"} onClick={() => setActive(false)}>
                 <div className={active ? "modal-content active" : "modal-content"} onClick={e => e.stopPropagation()}>
                     <div className="modal-body">
-                        <h3 style={{ marginBottom: "20px" }}>Добавить область</h3>
+                    <h3 >Добавить область</h3>
                         <form>
+                            <h4>Укажите название</h4>
                             <input type="text"
                                 className=''
                                 value={value}
                                 onChange={e => setValue(e.target.value)}
                                 placeholder={"Введите название области"} />
+                            <button className="btn__clickable" onClick={addArea}>Добавить</button>
                         </form>
-                        
-                        <button className="createCourseButton" onClick={addArea}>Добавить</button>
                     </div>
                 </div>
             </div>
         </>
-
     );
 };
 

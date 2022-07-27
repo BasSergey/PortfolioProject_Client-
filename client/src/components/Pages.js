@@ -11,11 +11,10 @@ const Pages = observer(() => {
         pages.push(i + 1)
     }
     return (
-        <div className="pagination" style={{ marginTop: "20px" }}>
+        <div className="pagination">
             {pages.map(page =>
                 <a
                     key={page}
-                    active={course.page === page}
                     onClick={() => course.setPage(page)}
                 >
                     {page}

@@ -1,7 +1,7 @@
 import React from 'react'
-import * as FaIcons from 'react-icons/fa'
 import * as AiIcons from 'react-icons/ai'
 import * as IoIcons from 'react-icons/io5'
+import * as RiIcons from 'react-icons/ri'
 export const  SideBarData = [
     
     {
@@ -13,19 +13,19 @@ export const  SideBarData = [
     {
         title : 'Shop',
         path: '/shop',
-        icon: <AiIcons.AiFillHome/>,
+        icon: <AiIcons.AiFillShopping/>,
         cName:'nav-text'
     },
     {
         title : 'Admin',
         path: '/admin',
-        icon: <AiIcons.AiFillHome/>,
+        icon: <RiIcons.RiAdminFill/>,
         cName:'nav-text'
     },
     {
         title : 'Loading',
         path: '/loading',
-        icon: <AiIcons.AiFillEdit/>,
+        icon: <AiIcons.AiOutlineLoading3Quarters/>,
         cName:'nav-text',
     },
     {

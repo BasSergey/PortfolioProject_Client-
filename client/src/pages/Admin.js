@@ -11,7 +11,7 @@ const Admin = () => {
 
     return (
         <>
-        <div className="container" style={{justifyContent: 'center', display: 'flex',flexDirection: 'column'}}>
+        <div className="container admin">
             <button
                 className="btn__clickable contentStartButton"
                 onClick={() => setTypeVisible(true)}
